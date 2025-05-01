@@ -1,27 +1,47 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
+
+
 int main(int argc, char *argv[])
 {
-FILE *file;
-int c=0,n,array[10],i=0;
-printf("File name:%s",argv[1]);
-file = fopen(argv[1],"r");
-//while((c=getc(file))!=EOF)
-// while(fscanf(file, "%d",&array[c])!=EOF)
-/*for(c=0; c<5; c++)
-{
-fscanf(file,"%d", &array[c]);
-printf("%d ",array[c]);
-c=c++;
-} */
-while((c=getc(file))!=EOF){
-fscanf(file,"%d",&array[c]);
-printf("%d",array[c]);
-i++;
-}
-printf("\n %d",i);
-n=i;
-printf("\n %d",n);
+    int i,j,temp,n,c=0,count=0,array[20];
+    char ch;
+    FILE *file;
+    printf("\n******* Task done by newly loaded Process *********");
+    printf("\n file with sorted array get by new process is: %s\n", argv[1]);
+    file=fopen(argv[1],"r");
+    if (file==NULL) {
+        printf("Error: Unable to open file %s\n", argv[1]);
+        return 1;
+    } 
+  
+       do {
+       fscanf(file,"%d",&array[c]);
+       c++;
+       count++; 
+    } while((ch=getc(file))!=EOF);
+    n=count-1;
+    
+
+     
+ 
+printf("\n Array sort by new process in reverse order");
+    for(i=0;i<n;i++)
+    {
+    for(j=0;j<n-i-1;j++)
+    {
+    	if(array[j]<array[j+1])
+    	{
+    	temp = array[j];
+        array[j] = array[j+1];
+        array[j+1] = temp;
+    	}
+    }
+    }
+    for(i=0;i<n;i++)
+    {
+    printf("\n %d",array[i]);
+    }
+       fclose(file);
+    return 0;
 }
 
